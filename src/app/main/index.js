@@ -13,8 +13,11 @@ function Main() {
 
   const store = useStore();
 
-  useInit(() => {
-    store.actions.catalog.initParams();
+  useInit(async () => {
+    await Promise.all([
+      store.actions.catalog.initParams(),
+      store.actions.categories.load()
+    ]);
   }, [], true);
 
   const {t} = useTranslate();
@@ -24,7 +27,7 @@ function Main() {
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
-      <Navigation />
+      <Navigation/>
       <CatalogFilter/>
       <CatalogList/>
     </PageLayout>
