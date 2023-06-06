@@ -33,9 +33,8 @@ class BasketState extends StoreModule {
 
     if (!exist) {
       // Поиск товара в каталоге, чтобы его добавить в корзину.
-      const response = await fetch(`/api/v1/articles/${_id}`);
-      const json = await response.json();
-      const item = json.result;
+      const res = await this.services.api.request({url: `/api/v1/articles/${_id}`});
+      const item = res.data.result;
 
       list.push({...item, amount: 1}); // list уже новый, в него можно пушить.
       // Добавляем к сумме.

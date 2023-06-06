@@ -1,16 +1,20 @@
 /**
  * Базовый класс для модулей хранилища
- * Для гурппировки действий над внешним состоянием
+ * Для группировки действий над внешним состоянием
  */
 class StoreModule {
 
   /**
    * @param store {Store}
    * @param name {String}
+   * @param [config] {Object}
    */
-  constructor(store, name) {
+  constructor(store, name, config = {}) {
     this.store = store;
     this.name = name;
+    this.config = config;
+    /** @type {Services} */
+    this.services = store.services;
   }
 
   initState() {

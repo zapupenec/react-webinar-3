@@ -23,16 +23,11 @@ class ProfileState extends StoreModule {
       waiting: true
     });
 
-    const response = await fetch(`/api/v1/users/self`, {
-      headers: {
-        'X-Token': this.store.getState().session.token
-      }
-    });
-    const json = await response.json();
+    const {data} = await this.services.api.request({url: `/api/v1/users/self`});
 
     // Профиль загружен успешно
     this.setState({
-      data: json.result,
+      data: data.result,
       waiting: false
     }, 'Загружен профиль из АПИ');
   }

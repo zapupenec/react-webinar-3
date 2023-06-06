@@ -92,12 +92,11 @@ class CatalogState extends StoreModule {
       'search[category]': ''
     });
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
-    const json = await response.json();
+    const res = await this.services.api.request({url: `/api/v1/articles?${new URLSearchParams(apiParams)}`});
     this.setState({
       ...this.getState(),
-      list: json.result.items,
-      count: json.result.count,
+      list: res.data.result.items,
+      count: res.data.result.count,
       waiting: false
     }, 'Загружен список товаров из АПИ');
   }

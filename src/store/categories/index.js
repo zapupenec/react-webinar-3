@@ -23,13 +23,14 @@ class CategoriesState extends StoreModule {
   async load() {
     this.setState({...this.getState(), waiting: true}, 'Ожидание загрузки категорий');
 
-    const response = await fetch(`/api/v1/categories?fields=_id,title,parent(_id)&limit=*`);
-    const json = await response.json();
+    const res = await this.services.api.request({
+      url: `/api/v1/categories?fields=_id,title,parent(_id)&limit=*`
+    });
 
     // Товар загружен успешно
     this.setState({
       ...this.getState(),
-      list: json.result.items,
+      list: res.data.result.items,
       waiting: false
     }, 'Категории загружены');
   }

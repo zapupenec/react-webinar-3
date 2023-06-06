@@ -5,7 +5,14 @@ import * as modules from './exports.js';
  */
 class Store {
 
-  constructor(initState = {}) {
+  /**
+   * @param services {Services}
+   * @param config {Object}
+   * @param initState {Object}
+   */
+  constructor(services, config = {}, initState = {}) {
+    this.services = services;
+    this.config = config;
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     /** @type {{
@@ -20,7 +27,7 @@ class Store {
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
-      this.actions[name] = new modules[name](this, name);
+      this.actions[name] = new modules[name](this, name, this.config?.modules[name] || {});
       this.state[name] = this.actions[name].initState();
     }
   }
@@ -60,15 +67,16 @@ class Store {
    * @param newState {Object}
    */
   setState(newState, description = 'setState') {
-    console.group(
-      `%c${'store.setState'} %c${description}`,
-      `color: ${'#777'}; font-weight: normal`,
-      `color: ${'#333'}; font-weight: bold`,
-    );
-    console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
-    console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
-    console.groupEnd();
-
+    if (this.config.log) {
+      console.group(
+        `%c${'store.setState'} %c${description}`,
+        `color: ${'#777'}; font-weight: normal`,
+        `color: ${'#333'}; font-weight: bold`,
+      );
+      console.log(`%c${'prev:'}`, `color: ${'#d77332'}`, this.state);
+      console.log(`%c${'next:'}`, `color: ${'#2fa827'}`, newState);
+      console.groupEnd();
+    }
     this.state = newState;
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener(this.state);
