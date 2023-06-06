@@ -4,6 +4,10 @@
  */
 class StoreModule {
 
+  /**
+   * @param store {Store}
+   * @param name {String}
+   */
   constructor(store, name) {
     this.store = store;
     this.name = name;
