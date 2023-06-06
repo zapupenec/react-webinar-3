@@ -9,10 +9,16 @@
   "basket.total": "Total",
   "basket.unit": "pcs",
   "basket.delete": "Delete",
-  "article.add": "Add",
-  "filter.reset": "Reset",
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "article.add": "Add",
+  "filter.reset": "Reset",
+  "auth.title": "Sign In",
+  "auth.login": "Login",
+  "auth.password": "Password",
+  "auth.signIn": "Sign in",
+  "session.signIn": "Sign In",
+  "session.signOut": "Sign Out"
 }

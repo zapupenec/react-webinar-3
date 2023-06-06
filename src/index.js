@@ -20,6 +20,3 @@ root.render(
     </I18nProvider>
   </StoreContext.Provider>
 );
-
-
-console.log(exclude({a: 1, b: 2}, {b: 2}));
