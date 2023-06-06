@@ -85,7 +85,41 @@ class SessionState extends StoreModule {
   }
 
   /**
-   * Сброс ошибок авториазции
+   * По токену восстановление сессии
+   * @return {Promise<void>}
+   */
+  async remind() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Проверяем токен выбором своего профиля
+      const res = await fetch('/api/v1/users/self', {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Token': token
+        },
+      });
+      const json = await res.json();
+      if (json.error) {
+        // Удаляем плохой токен
+        window.localStorage.removeItem('token');
+        this.setState({
+          ...this.getState(), exists: false, waiting: false
+        }, 'Сессии нет');
+      } else {
+        this.setState({
+          ...this.getState(),token: token, user: json.result, exists: true, waiting: false
+        }, 'Успешно вспомнили сессию');
+      }
+    } else {
+      // Если токена не было, то сбрасываем ожидание (так как по умочланию true)
+      this.setState({
+        ...this.getState(), exists: false, waiting: false
+      }, 'Сессии нет');
+    }
+  }
+
+  /**
+   * Сброс ошибок авторизации
    */
   resetErrors(){
     this.setState({...this.initState(), errors: null})
