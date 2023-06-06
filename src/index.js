@@ -4,6 +4,7 @@ import {StoreContext} from "./store/context";
 import {I18nProvider} from "./i18n/context";
 import App from './app';
 import Store from "./store";
+import exclude from "./utils/exclude";
 
 const store = new Store();
 
@@ -19,3 +20,6 @@ root.render(
     </I18nProvider>
   </StoreContext.Provider>
 );
+
+
+console.log(exclude({a: 1, b: 2}, {b: 2}));
