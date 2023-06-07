@@ -9,6 +9,7 @@ import Article from "./article";
 import Login from "./login";
 import Profile from "./profile";
 import Protected from "../containers/protected";
+import {useSelector as useSelectorRedux} from 'react-redux';
 
 /**
  * Приложение
@@ -21,7 +22,7 @@ function App() {
     await store.actions.session.remind();
   })
 
-  const activeModal = useSelector(state => state.modals.name);
+  const activeModal = useSelectorRedux(state => state.modals.name);
 
   return (
     <>
