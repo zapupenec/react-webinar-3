@@ -26,3 +26,24 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Создание генератора уникальных чисел
+ * @returns {() => number}
+ */
+function uniqId() {
+  let id = 0;
+
+  const nextId = () => {
+    id += 1
+    return id;
+  }
+
+  return nextId;
+}
+
+/**
+ * Генератор уникальных чисел
+ * @returns {number}
+ */
+export const nextId = uniqId();
