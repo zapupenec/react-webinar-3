@@ -3,7 +3,7 @@ import { nextId } from "./utils";
 /**
  * Хранилище состояния приложения
  */
-class Store {
+export class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
@@ -11,7 +11,7 @@ class Store {
 
   /**
    * Подписка слушателя на изменения состояния
-   * @param listener {Function}
+   * @param {Function} listener 
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
@@ -32,7 +32,7 @@ class Store {
 
   /**
    * Установка состояния
-   * @param newState {Object}
+   * @param {Object} newState
    */
   setState(newState) {
     this.state = newState;
@@ -46,7 +46,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: nextId(), title: 'Новая запись'}]
+      list: [...this.state.list, {code: nextId(), title: 'Новая запись', selectionCount: 0}]
     })
   };
 
@@ -70,6 +70,9 @@ class Store {
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
+          if (!item.selected) {
+            item.selectionCount += 1;
+          }
           item.selected = !item.selected;
         } else {
           item.selected = false;
