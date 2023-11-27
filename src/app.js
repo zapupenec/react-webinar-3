@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {createElement, pluralize} from './utils.js';
 import './styles.css';
 import Store from './store.js';
@@ -9,12 +9,17 @@ import Store from './store.js';
  * @returns {React.ReactElement}
  */
 function App({store}) {
+  const {list} = store.getState();
 
-  const list = store.getState().list;
   const pluralForms = {
     one: 'раз',
     few: 'раза',
     many: 'раз'
+  }
+
+  const handleClickBtn = (code) => (e) => {
+    e.stopPropagation();
+    store.deleteItem(code)
   }
 
   return (
@@ -29,15 +34,17 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
+              <div
+                className={'Item' + (item.selected ? ' Item_selected' : '')}
+                onClick={() => store.selectItem(item.code)}
+              >
                 <div className='Item-code'>{item.code}</div>
                 <div className='Item-title'>
                   {item.title}
                   {item.selectionCount !== 0 && ` | Выделяли ${pluralize(item.selectionCount, pluralForms)}`}
                 </div>
                 <div className='Item-actions'>
-                  <button onClick={() => store.deleteItem(item.code)}>
+                  <button onClick={handleClickBtn(item.code)}>
                     Удалить
                   </button>
                 </div>
