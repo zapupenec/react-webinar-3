@@ -1,0 +1,28 @@
+.CartInfo {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.CartInfo-text {
+  font-size: 18px;
+  font-weight: 400;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.CartInfo-info {
+  font-weight: 700;
+}
+
+.CartInfo-generalName {
+  color: #0c0c0c;
+}
+
+.CartInfo-controls {
+  padding: 20px 20px 20px 0;
+  min-width: 100px;
+  display: flex;
+  justify-content: flex-end;
+}

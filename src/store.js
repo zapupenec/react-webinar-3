@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -11,15 +9,15 @@ class Store {
 
   /**
    * Подписка слушателя на изменения состояния
-   * @param listener {Function}
+   * @param {Function} listener
    * @returns {Function} Функция отписки
    */
   subscribe(listener) {
     this.listeners.push(listener);
     // Возвращается функция для удаления добавленного слушателя
     return () => {
-      this.listeners = this.listeners.filter(item => item !== listener);
-    }
+      this.listeners = this.listeners.filter((item) => item !== listener);
+    };
   }
 
   /**
@@ -32,7 +30,7 @@ class Store {
 
   /**
    * Установка состояния
-   * @param newState {Object}
+   * @param {Object} newState
    */
   setState(newState) {
     this.state = newState;
@@ -41,47 +39,55 @@ class Store {
   }
 
   /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
-  /**
    * Удаление записи по коду
    * @param code
+   * @returns {Object | undefined}
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
-    })
-  };
+  getItem(code) {
+    return this.state.list.find((item) => item.code === code);
+  }
 
   /**
-   * Выделение записи по коду
+   * Добавление товара в корзину
+   * @param {Object} item
+   */
+  addToCart(code) {
+    const item = this.state.orders.find((item) => item.code === code);
+
+    if (item) {
+      this.setState({
+        ...this.state,
+        orders: [
+          ...this.state.orders.filter((order) => order.code !== code),
+          {
+            ...item,
+            count: item.count + 1,
+          },
+        ],
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        orders: [
+          ...this.state.orders,
+          {
+            ...this.getItem(code),
+            count: 1,
+          },
+        ],
+      });
+    }
+  }
+
+  /**
+   * Удаление удаление товара из корзины
    * @param code
    */
-  selectItem(code) {
+  deleteFromCart(code) {
     this.setState({
       ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          // Смена выделения и подсчёт
-          return {
-            ...item,
-            selected: !item.selected,
-            count: item.selected ? item.count : item.count + 1 || 1,
-          };
-        }
-        // Сброс выделения если выделена
-        return item.selected ? {...item, selected: false} : item;
-      })
-    })
+      orders: this.state.orders.filter((order) => order.code !== code),
+    });
   }
 }
 
