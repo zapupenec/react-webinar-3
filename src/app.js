@@ -44,22 +44,22 @@ function App({ store }) {
       <PageLayout>
         <Head title="Магазин" />
         <CartInfo
+          onShowCart={callbacks.onShowCart}
           totalPrice={totalPrice}
           uniqOrderCount={uniqOrderCount}
-          onShowCart={callbacks.onShowCart}
         />
         <List
-          list={list}
           actions={[{ title: "Добавить", func: callbacks.onAddToCart }]}
+          list={list}
         />
       </PageLayout>
       <Modal isShow={isShow} onClose={callbacks.onCloseCart}>
+        <Head title="Корзина" />
         <Cart
-          orders={orders}
           actions={[{ title: "Удалить", func: callbacks.ondDeleteFromCart }]}
-          onCloseCart={callbacks.onCloseCart}
+          orders={orders}
           totalPrice={totalPrice}
-        ></Cart>
+        />
       </Modal>
     </>
   );
