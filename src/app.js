@@ -3,6 +3,8 @@ import List from "./components/list";
 import CartInfo from "./components/cart-info";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
+import Cart from "./components/cart";
 
 /**
  * Приложение
@@ -10,7 +12,8 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({ store }) {
-  const { list, orders } = store.getState();
+  const { list, cart } = store.getState();
+  const { orders, totalPrice, uniqOrderCount, isShow } = cart;
 
   const callbacks = {
     onAddToCart: useCallback(
@@ -26,20 +29,39 @@ function App({ store }) {
       },
       [store]
     ),
+
+    onShowCart: useCallback(() => {
+      store.showCart();
+    }, []),
+
+    onCloseCart: useCallback(() => {
+      store.closeCart();
+    }, []),
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <CartInfo
-        orders={orders}
-        actions={[{ title: "Удалить", func: callbacks.ondDeleteFromCart }]}
-      />
-      <List
-        list={list}
-        actions={[{ title: "Добавить", func: callbacks.onAddToCart }]}
-      />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <CartInfo
+          totalPrice={totalPrice}
+          uniqOrderCount={uniqOrderCount}
+          onShowCart={callbacks.onShowCart}
+        />
+        <List
+          list={list}
+          actions={[{ title: "Добавить", func: callbacks.onAddToCart }]}
+        />
+      </PageLayout>
+      <Modal isShow={isShow} onClose={callbacks.onCloseCart}>
+        <Cart
+          orders={orders}
+          actions={[{ title: "Удалить", func: callbacks.ondDeleteFromCart }]}
+          onCloseCart={callbacks.onCloseCart}
+          totalPrice={totalPrice}
+        ></Cart>
+      </Modal>
+    </>
   );
 }
 

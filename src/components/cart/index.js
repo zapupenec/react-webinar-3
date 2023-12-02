@@ -5,20 +5,21 @@ import "./style.css";
 import List from "../list";
 import Head from "../head";
 import Button from "../button";
+import { getPriceDisplay } from "../../utils";
 
-function Cart({ orders, actions, onCloseCart, totalPrice }) {
+function Cart(props) {
   return (
     <div className="Cart" onClick={(e) => e.stopPropagation()}>
       <div className="Cart-closeBtn">
-        <Button onClick={onCloseCart} text="Закрыть" />
+        <Button onClick={props.onCloseCart} text="Закрыть" />
       </div>
       <Head title="Корзина" />
       <div className="Cart-list">
-        <List actions={actions} list={orders} />
+        <List actions={props.actions} list={props.orders} />
       </div>
       <div className="Cart-totalPrice">
         <span>Итого</span>
-        <span>{`${totalPrice.toLocaleString("ru-RU")} ₽`}</span>
+        <span>{getPriceDisplay(props.totalPrice)}</span>
       </div>
     </div>
   );

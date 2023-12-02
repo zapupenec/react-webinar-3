@@ -43,8 +43,12 @@ class Store {
    * @param code
    * @returns {Object | undefined}
    */
-  getItem(code) {
+  getItemBy(code) {
     return this.state.list.find((item) => item.code === code);
+  }
+
+  getOrderBy(code) {
+    return this.state.cart.orders.find((item) => item.code === code);
   }
 
   /**
@@ -52,29 +56,38 @@ class Store {
    * @param {Object} item
    */
   addToCart(code) {
-    const item = this.state.orders.find((item) => item.code === code);
+    const item = this.getOrderBy(code);
 
     if (item) {
       this.setState({
         ...this.state,
-        orders: [
-          ...this.state.orders.filter((order) => order.code !== code),
-          {
-            ...item,
-            count: item.count + 1,
-          },
-        ],
+        cart: {
+          ...this.state.cart,
+          orders: [
+            ...this.state.cart.orders.filter((order) => order.code !== code),
+            {
+              ...item,
+              count: item.count + 1,
+            },
+          ],
+          totalPrice: this.state.cart.totalPrice + item.price,
+        },
       });
     } else {
       this.setState({
         ...this.state,
-        orders: [
-          ...this.state.orders,
-          {
-            ...this.getItem(code),
-            count: 1,
-          },
-        ],
+        cart: {
+          ...this.state.cart,
+          orders: [
+            ...this.state.cart.orders,
+            {
+              ...this.getItemBy(code),
+              count: 1,
+            },
+          ],
+          totalPrice: this.state.cart.totalPrice + this.getItemBy(code).price,
+          uniqOrderCount: this.state.cart.uniqOrderCount + 1,
+        },
       });
     }
   }
@@ -84,11 +97,47 @@ class Store {
    * @param code
    */
   deleteFromCart(code) {
+    const item = this.getOrderBy(code);
+
     this.setState({
       ...this.state,
-      orders: this.state.orders.filter((order) => order.code !== code),
+      cart: {
+        ...this.state.cart,
+        orders: this.state.cart.orders.filter((order) => order.code !== code),
+        totalPrice: this.state.cart.totalPrice - item.price * item.count,
+        uniqOrderCount: this.state.cart.uniqOrderCount - 1,
+      },
+    });
+  }
+
+  /**
+   * Показать корзину
+   */
+  showCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isShow: true,
+      },
+    });
+  }
+
+  /**
+   * Закрыть корзину
+   */
+  closeCart() {
+    this.setState({
+      ...this.state,
+      cart: {
+        ...this.state.cart,
+        isShow: false,
+      },
     });
   }
 }
 
 export default Store;
+
+// Сумму и количество считай в store в момент добавления/удаления, там и храни. Глупый компонент cart-info не должен выполнять никаких расчетов.
+// Для модалки свой компонент по примеру PageLayout и выводить его в App.
