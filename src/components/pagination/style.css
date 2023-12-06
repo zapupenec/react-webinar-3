@@ -1,0 +1,35 @@
+/* Контрол с общими действиями */
+.Pagination {
+  margin: 0;
+  padding: 20px 20px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.Pagination-item {
+  padding: 0 1px;
+  text-align: center;
+  list-style: none;
+  min-width: 18px;
+  height: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.Pagination-item:hover {
+  background: #e1e1e1;
+}
+
+.Pagination-item_active {
+  color: #fff;
+  background: #0087e9;
+  pointer-events: none;
+}
+
+.Pagination-item_gap {
+  color: #ccc;
+  pointer-events: none;
+}
