@@ -1,0 +1,20 @@
+.ProductInfo {
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.ProductInfo-madeIn > span,
+.ProductInfo-category > span,
+.ProductInfo-edition > span {
+  font-weight: 700;
+}
+
+.ProductInfo-price {
+  font-size: 24px;
+  font-weight: 700;
+}

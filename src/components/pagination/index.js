@@ -3,13 +3,11 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
+import { Link } from "react-router-dom";
+import routes from "../../app/routes";
 
 function Pagination({ activePage, pageCount, prevPageCount, nextPageCount, setActivePage }) {
   const cn = bem("Pagination");
-
-  const callbacks = {
-    setActivePage: (page) => (e) => setActivePage(page),
-  };
 
   const getItems = () => {
     const items = [];
@@ -27,9 +25,10 @@ function Pagination({ activePage, pageCount, prevPageCount, nextPageCount, setAc
           <li
             key={page}
             className={cn("item", { active: page === activePage })}
-            onClick={callbacks.setActivePage(page)}
           >
-            {page}
+            <Link className={cn("link")} to={`${routes.main}${page}`}>
+              {page}
+            </Link>
           </li>
         );
       } else if (

@@ -1,0 +1,15 @@
+.Navigation {
+  margin: 0;
+  padding: 0;
+}
+
+.Navigation-item {
+  list-style: none;
+}
+
+.Navigation-link {
+  color: #0087E9;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration-line: underline;
+}

@@ -1,29 +1,26 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
-import {cn as bem} from '@bem-react/classname';
-import './style.css';
+import { Outlet } from "react-router-dom";
+import { cn as bem } from "@bem-react/classname";
 
-function PageLayout({head, footer, children}) {
+import "./style.css";
 
-  const cn = bem('PageLayout');
+function PageLayout({ head, footer }) {
+  const cn = bem("PageLayout");
 
   return (
     <div className={cn()}>
-      <div className={cn('head')}>
-        {head}
+      <div className={cn("head")}>{head}</div>
+      <div className={cn("center")}>
+        <Outlet />
       </div>
-      <div className={cn('center')}>
-        {children}
-      </div>
-      <div className={cn('footer')}>
-        {footer}
-      </div>
+      <div className={cn("footer")}>{footer}</div>
     </div>
   );
 }
 
 PageLayout.propTypes = {
-  children: PropTypes.node
-}
+  children: PropTypes.node,
+};
 
 export default memo(PageLayout);

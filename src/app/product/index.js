@@ -1,11 +1,9 @@
 import { memo, useCallback, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import Item from "../../components/item";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
-import List from "../../components/list";
-import Pagination from "../../components/pagination";
+import ProductInfo from "../../components/product-info";
 import HeaderBottom from "../../components/header-bottom";
 import Navigation from "../../components/navigation";
 
@@ -13,20 +11,19 @@ import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import routes from "../routes";
 
-function Main() {
+function Product() {
   const store = useStore();
-  const params = useParams();
 
   const select = useSelector((state) => ({
-    list: state.catalog.list,
-    pageCount: state.catalog.pageCount,
+    product: state.product,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
 
+  const params = useParams();
   useEffect(() => {
-    store.actions.catalog.load(params.page, 10);
-  }, [params.page]);
+    store.actions.product.load(params.id);
+  }, []);
 
   const callbacks = {
     // Добавление в корзину
@@ -41,18 +38,11 @@ function Main() {
     ),
   };
 
-  const renders = {
-    item: useCallback(
-      (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
-      },
-      [callbacks.addToBasket]
-    ),
-  };
-
   return (
     <>
-      <Head title="Магазин" />
+      <Head
+        title={select.product.isLoading ? "Загрузка..." : select.product.title}
+      />
       <HeaderBottom>
         <Navigation />
         <BasketTool
@@ -61,13 +51,11 @@ function Main() {
           sum={select.sum}
         />
       </HeaderBottom>
-      <List list={select.list} renderItem={renders.item} onC />
-      <Pagination
-        activePage={Number(params.page)}
-        pageCount={select.pageCount}
-      />
+      {!select.product.isLoading && (
+        <ProductInfo product={select.product} onAdd={callbacks.addToBasket} />
+      )}
     </>
   );
 }
 
-export default memo(Main);
+export default memo(Product);
