@@ -11,6 +11,7 @@ class Store {
     /** @type {{
      * basket: Basket,
      * catalog: Catalog,
+     * language: Language,
      * modals: Modals
      * product: Product,
      * }} */

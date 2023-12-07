@@ -9,7 +9,7 @@ import Navigation from "../../components/navigation";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import routes from "../routes";
+import useLanguage from "../../store/use-language";
 
 function Product() {
   const store = useStore();
@@ -19,6 +19,8 @@ function Product() {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  const { translations } = useLanguage();
 
   const params = useParams();
   useEffect(() => {
@@ -41,7 +43,11 @@ function Product() {
   return (
     <>
       <Head
-        title={select.product.isLoading ? "Загрузка..." : select.product.title}
+        title={
+          select.product.isLoading
+            ? `${translations.loading}...`
+            : select.product.title
+        }
       />
       <HeaderBottom>
         <Navigation />

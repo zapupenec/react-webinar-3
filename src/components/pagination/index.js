@@ -6,7 +6,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import routes from "../../app/routes";
 
-function Pagination({ activePage, pageCount, prevPageCount, nextPageCount, setActivePage }) {
+function Pagination({ activePage, pageCount, prevPageCount, nextPageCount }) {
   const cn = bem("Pagination");
 
   const getItems = () => {
@@ -56,7 +56,6 @@ Pagination.propTypes = {
   pageCount: PropTypes.number,
   prevPageCount: PropTypes.number,
   nextPageCount: PropTypes.number,
-  setActivePage: PropTypes.func,
 };
 
 Pagination.defaultProps = {
@@ -64,7 +63,6 @@ Pagination.defaultProps = {
   pageCount: 1,
   prevPageCount: 1,
   nextPageCount: 1,
-  setActivePage: () => {},
 };
 
 export default memo(Pagination);

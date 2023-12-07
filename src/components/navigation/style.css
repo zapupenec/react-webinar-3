@@ -1,4 +1,7 @@
 .Navigation {
+}
+
+.Navigation-list {
   margin: 0;
   padding: 0;
 }
@@ -8,7 +11,7 @@
 }
 
 .Navigation-link {
-  color: #0087E9;
+  color: #0087e9;
   font-size: 18px;
   font-weight: 400;
   text-decoration-line: underline;

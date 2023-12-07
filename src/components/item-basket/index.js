@@ -6,9 +6,11 @@ import PropTypes from "prop-types";
 import { numberFormat } from "../../utils";
 import "./style.css";
 import routes from "../../app/routes";
+import useLanguage from "../../store/use-language";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
+  const { locale, translations } = useLanguage();
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
@@ -27,12 +29,12 @@ function ItemBasket(props) {
         </Link>
       </div>
       <div className={cn("right")}>
-        <div className={cn("cell")}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn("cell")}>{numberFormat(props.item.price, locale)} ₽</div>
         <div className={cn("cell")}>
-          {numberFormat(props.item.amount || 0)} шт
+          {numberFormat(props.item.amount || 0, locale)} {translations.pcs}
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{translations.remove}</button>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Item from "../../components/item";
 import Head from "../../components/head";
@@ -11,7 +11,7 @@ import Navigation from "../../components/navigation";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import routes from "../routes";
+import useLanguage from "../../store/use-language";
 
 function Main() {
   const store = useStore();
@@ -23,6 +23,8 @@ function Main() {
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  const { translations } = useLanguage();
 
   useEffect(() => {
     store.actions.catalog.load(params.page, 10);
@@ -52,7 +54,7 @@ function Main() {
 
   return (
     <>
-      <Head title="Магазин" />
+      <Head title={translations.store} />
       <HeaderBottom>
         <Navigation />
         <BasketTool

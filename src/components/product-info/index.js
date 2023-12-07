@@ -4,32 +4,37 @@ import { cn as bem } from "@bem-react/classname";
 
 import "./style.css";
 import { numberFormat } from "../../utils";
+import useLanguage from "../../store/use-language";
 
 function ProductInfo(props) {
   const cn = bem("ProductInfo");
+  const { locale, translations } = useLanguage();
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.product._id),
+    onAdd: () => props.onAdd(props.product._id),
   };
 
   return (
     <div className={cn()}>
       <div className={cn("description")}>{props.product.description}</div>
       <div className={cn("madeIn")}>
-        Страна производитель: <span>{props.product.madeIn}</span>
+        {`${translations.madeIn}: `} <span>{props.product.madeIn}</span>
       </div>
       <div className={cn("category")}>
-        {"Категория: "}
+        {`${translations.category}: `}
         <span>{props.product.category}</span>
       </div>
       <div className={cn("edition")}>
-        {"Год выпуска: "}
+        {`${translations.edition}: `}
         <span>{props.product.edition}</span>
       </div>
       <div className={cn("price")}>
-        {`Цена: ${numberFormat(props.product.price)} ₽`}
+        {`${translations.price}: ${numberFormat(
+          props.product.price,
+          locale
+        )} ₽`}
       </div>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+      <button onClick={callbacks.onAdd}>{translations.add}</button>
     </div>
   );
 }
