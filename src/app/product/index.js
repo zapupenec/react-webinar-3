@@ -25,7 +25,7 @@ function Product() {
   const params = useParams();
   useEffect(() => {
     store.actions.product.load(params.id);
-  }, []);
+  }, [params.id]);
 
   const callbacks = {
     // Добавление в корзину
