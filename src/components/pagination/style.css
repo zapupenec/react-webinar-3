@@ -42,6 +42,7 @@
 .Pagination-item_split:hover {
   background: transparent;
   cursor: default;
+  pointer-events: none;
   color: #CCCCCC;
 }
 
