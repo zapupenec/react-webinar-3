@@ -10,7 +10,12 @@
   "basket.unit": "pcs",
   "basket.delete": "Delete",
   "article.add": "Add",
+  "filter.order": "By order",
+  "filter.title": "By title",
+  "filter.expensive": "Expensive first",
+  "filter.edition": "Ancients first",
   "filter.reset": "Reset",
+  "filter.search": "Search",
   "basket.articles": {
     "one": "article",
     "other": "articles"

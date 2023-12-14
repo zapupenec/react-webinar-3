@@ -12,8 +12,7 @@ GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=20
 # Список с пагинацией и возвратом общего количества (и только нужных свойств через fields)
 # Про формат fields смотри http://query.rest
 
-GET http://example.front.ylab.io/api/v1/articles?limit=10&skip=10&
-  fields=items(_id, title, price),count
+GET http://example.front.ylab.io/api/v1/articles?limit=10&search[categor]=65782dc9cbf638685992a338&skip=10&fields=items(_id, title, price, category),count
 
 ###
 # Товар по id

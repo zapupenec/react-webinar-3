@@ -10,7 +10,12 @@
   "basket.unit": "шт",
   "basket.delete": "Удалить",
   "article.add": "Добавить",
+  "filter.order": "По порядку",
+  "filter.title": "По именованию",
+  "filter.expensive": "Сначала дорогие",
+  "filter.edition": "Древние",
   "filter.reset": "Сбросить",
+  "filter.search": "Поиск",
   "basket.articles": {
     "one": "товар",
     "few": "товара",
