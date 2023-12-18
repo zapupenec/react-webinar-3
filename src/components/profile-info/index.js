@@ -1,18 +1,10 @@
 import { memo } from "react";
 import { cn as bem } from "@bem-react/classname";
+import PropTypes from 'prop-types';
 import "./style.css";
-import useTranslate from "../../hooks/use-translate";
-import useSelector from "../../hooks/use-selector";
 
-function ProfileInfo() {
-  const { t } = useTranslate();
+function ProfileInfo({user , t}) {
   const cn = bem("ProfileInfo");
-
-  const select = useSelector((state) => ({
-    name: state.auth.user?.profile.name,
-    phone: state.auth.user?.profile.phone,
-    email: state.auth.user?.email,
-  }));
 
   return (
     <div className={cn()}>
@@ -20,19 +12,32 @@ function ProfileInfo() {
       <div className={cn("fields")}>
         <div>
           {`${t("profile.name")}: `}
-          <span className={cn("data")}>{select.name}</span>
+          <span className={cn("data")}>{user?.profile.name}</span>
         </div>
         <div>
           {`${t("profile.phone")}: `}
-          <span className={cn("data")}>{select.phone}</span>
+          <span className={cn("data")}>{user?.profile.phone}</span>
         </div>
         <div>
           {`${t("profile.email")}: `}
-          <span className={cn("data")}>{select.email}</span>
+          <span className={cn("data")}>{user?.email}</span>
         </div>
       </div>
     </div>
   );
+}
+
+ProfileInfo.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
+  t: PropTypes.func
+};
+
+ProfileInfo.defaultProps = {
+  t: (text) => text
 }
 
 export default memo(ProfileInfo);

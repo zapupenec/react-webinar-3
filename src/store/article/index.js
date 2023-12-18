@@ -23,7 +23,8 @@ class ArticleState extends StoreModule {
     this.setState({
       ...this.getState(),
       data: {},
-      waiting: true
+      waiting: true,
+      error: null,
     });
 
     try {

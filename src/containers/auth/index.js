@@ -1,40 +1,39 @@
 import { memo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn as bem } from "@bem-react/classname";
-import "./style.css";
+
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import SideLayout from "../../components/side-layout";
 
 function Auth() {
   const cn = bem("Auth");
   const store = useStore();
+  const navigate = useNavigate();
 
   const select = useSelector((state) => ({
     user: state.auth.user,
   }));
 
   const callbacks = {
+    toLoginPage: () => navigate("/login"),
     logout: useCallback(() => store.actions.auth.logout(), [store]),
   };
 
   const { t } = useTranslate();
 
   return (
-    <div className={cn()}>
+    <SideLayout side="end" paddingX="medium" paddingY="small">
       {select.user ? (
-        <>
-          <Link to="/profile">{select.user.profile.name}</Link>
+        <SideLayout gap="small">
+          <Link to="/profile">{select.user}</Link>
           <button onClick={callbacks.logout}>{t("auth.logout")}</button>
-        </>
+        </SideLayout>
       ) : (
-        <button>
-          <Link className={cn("linkToLogin")} to="/login">
-            {t("auth.login")}
-          </Link>
-        </button>
+        <button onClick={callbacks.toLoginPage}>{t("auth.login")}</button>
       )}
-    </div>
+    </SideLayout>
   );
 }
 

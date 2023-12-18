@@ -13,24 +13,48 @@ class AuthState extends StoreModule {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    const response = await fetch(`/api/v1/users/self`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Token": token,
-      },
-    });
-    const json = await response.json();
-
-    if (!response.ok) return;
-
     this.setState(
       {
         ...this.getState(),
-        user: json.result,
+        waiting: true,
+        error: null,
       },
-      "Пользователь авторизован"
+      "Проверка авторизации"
     );
+
+    try {
+      const response = await fetch(`/api/v1/users/self`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Token": token,
+        },
+      });
+      const json = await response.json();
+
+      if (!response.ok) {
+        throw new Error(json.error.data.issues[0].message);
+      }
+
+      this.setState(
+        {
+          ...this.getState(),
+          user: json.result.profile.name,
+          waiting: false,
+        },
+        "Пользователь авторизован"
+      );
+    } catch (error) {
+      this.setState(
+        {
+          ...this.getState(),
+          error: error.message,
+          waiting: false,
+        },
+        "Ошибка авторизации"
+      );
+      throw error;
+    }
   }
 
   async login(loginData) {
@@ -61,7 +85,7 @@ class AuthState extends StoreModule {
       this.setState(
         {
           ...this.getState(),
-          user: json.result.user,
+          user: json.result.user.profile.name,
           waiting: false,
         },
         "Пользователь авторизован"
@@ -73,7 +97,7 @@ class AuthState extends StoreModule {
           error: error.message,
           waiting: false,
         },
-        "Ошибка автризации"
+        "Ошибка авторизации"
       );
       throw error;
     }
@@ -82,8 +106,8 @@ class AuthState extends StoreModule {
   logout() {
     const token = localStorage.getItem("token");
 
-    fetch(`/api/v1/users/self`, {
-      method: "GET",
+    fetch(`/api/v1/users/sign`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         "X-Token": token,

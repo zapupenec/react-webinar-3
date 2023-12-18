@@ -9,12 +9,14 @@ class Store {
     this.listeners = []; // Слушатели изменений состояния
     this.state = initState;
     /** @type {{
+     * auth: AuthState
      * basket: BasketState,
      * catalog: CatalogState,
+     * category: CategoryState,
      * modals: ModalsState,
      * article: ArticleState,
      * locale: LocaleState
-     * auth: AuthState
+     * user: UserState
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {
@@ -39,12 +41,14 @@ class Store {
   /**
    * Выбор состояния
    * @returns {{
+   * auth: Object
    * basket: Object,
    * catalog: Object,
+   * category: Object,
    * modals: Object,
    * article: Object,
    * locale: Object
-   * auth: Object
+   * user: Object
    * }}
    */
   getState() {
