@@ -1,7 +1,7 @@
 ###
 # Авторизация
 
-POST {{baseUrl}}/users/sign
+POST http://example.front.ylab.io/api/v1/users/sign
 Content-Type: application/json
 
 {
@@ -12,13 +12,13 @@ Content-Type: application/json
 ###
 # Выход - отмена авториазции для удаления токена
 
-DELETE {{baseUrl}}/users/sign
-X-Token: {{token}}
+DELETE http://example.front.ylab.io/api/v1/users/sign
+X-Token: ed9b341d85860b91420b216594a433c1e3d564cd7246e714ee02b3ec395a6ce5
 Content-Type: application/json
 
 ###
 # Свой профиль
 
-GET {{baseUrl}}/users/self
-X-Token: {{token}}
+GET http://example.front.ylab.io/api/v1/users/self?fields=*
+X-Token: ed9b341d85860b91420b216594a433c1e3d564cd7246e714ee02b3ec395a6ce5
 Content-Type: application/json

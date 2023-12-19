@@ -1,18 +1,17 @@
-import {memo, useCallback, useState} from "react";
-import useTranslate from "../../hooks/use-translate";
-import Head from "../../components/head";
-import LocaleSelect from "../../containers/locale-select";
-import Navigation from "../../containers/navigation";
-import PageLayout from "../../components/page-layout";
-import Input from "../../components/input";
-import Field from "../../components/field";
-import SideLayout from "../../components/side-layout";
-import TopHead from "../../containers/top-head";
-import {useLocation, useNavigate} from "react-router-dom";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
-import useInit from "../../hooks/use-init";
-
+import {memo, useCallback, useState} from 'react';
+import useTranslate from '../../hooks/use-translate';
+import Head from '../../components/head';
+import LocaleSelect from '../../containers/locale-select';
+import Navigation from '../../containers/navigation';
+import PageLayout from '../../components/page-layout';
+import Input from '../../components/input';
+import Field from '../../components/field';
+import SideLayout from '../../components/side-layout';
+import TopHead from '../../containers/top-head';
+import {useLocation, useNavigate} from 'react-router-dom';
+import useStore from '../../hooks/use-store';
+import useSelector from '../../hooks/use-selector';
+import useInit from '../../hooks/use-init';
 
 function Login() {
 
@@ -66,15 +65,15 @@ function Login() {
         <form onSubmit={callbacks.onSubmit}>
           <h2>{t('auth.title')}</h2>
           <Field label={t('auth.login')} error={select.errors?.login}>
-            <Input name="login" value={data.login} onChange={callbacks.onChange}/>
+            <Input name='login' value={data.login} onChange={callbacks.onChange}/>
           </Field>
           <Field label={t('auth.password')} error={select.errors?.password}>
-            <Input name="password" type="password" value={data.password}
+            <Input name='password' type='password' value={data.password}
                    onChange={callbacks.onChange}/>
           </Field>
           <Field error={select.errors?.other}/>
           <Field>
-            <button type="submit">{t('auth.signIn')}</button>
+            <button type='submit'>{t('auth.signIn')}</button>
           </Field>
         </form>
       </SideLayout>

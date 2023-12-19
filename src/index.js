@@ -1,11 +1,11 @@
 import {createRoot} from 'react-dom/client';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {ServicesContext} from "./context";
-import {I18nProvider} from "./i18n/context";
+import {ServicesContext} from './context';
+import {I18nProvider} from './i18n/context';
 import App from './app';
-import Services from "./services";
-import config from "./config";
+import Services from './services';
+import config from './config';
 
 const services = new Services(config);
 

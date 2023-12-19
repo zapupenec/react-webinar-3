@@ -1,5 +1,5 @@
-import {createContext, useMemo, useState} from "react";
-import translate from "./translate";
+import {createContext, useMemo, useState} from 'react';
+import translate from './translate';
 
 /**
  * @type {React.Context<{}>}
