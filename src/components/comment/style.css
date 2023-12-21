@@ -1,0 +1,39 @@
+.Comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.Comment-author {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.Comment-date {
+  color: #666;
+  font-weight: 400;
+}
+
+.Comment-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.Comment-reply {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  width: max-content;
+  cursor: pointer;
+  color: #0087E9;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.Comment-reply:hover {
+  text-decoration: underline;
+}

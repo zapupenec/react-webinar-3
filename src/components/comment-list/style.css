@@ -1,0 +1,17 @@
+.CommentList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.CommentList-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.CommentList-children {
+  margin-left: 30px;
+}
