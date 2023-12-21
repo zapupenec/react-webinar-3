@@ -3,13 +3,14 @@ export const initialState = {
   list: [],
   count: 0,
   waiting: false, // признак ожидания загрузки
+  errors: null,
 };
 
 // Обработчик действий
 function reducer(state = initialState, action) {
   switch (action.type) {
     case "comments/load-start":
-      return { ...state, list: [], count: 0, waiting: true };
+      return { ...state, list: [], count: 0, waiting: true, errors: null };
 
     case "comments/load-success":
       return {
@@ -20,7 +21,12 @@ function reducer(state = initialState, action) {
       };
 
     case "comments/load-error":
-      return { ...state, list: [], waiting: false }; //@todo текст ошибки сохранять?
+      return {
+        ...state,
+        list: [],
+        waiting: false,
+        errors: action.payload.data,
+      };
 
     case "comments/add-start":
       return { ...state, waiting: true };
@@ -34,7 +40,7 @@ function reducer(state = initialState, action) {
       };
 
     case "comments/add-error":
-      return { ...state, waiting: false }; //@todo текст ошибки сохранять?
+      return { ...state, waiting: false, errors: action.payload.data };
 
     default:
       // Нет изменений

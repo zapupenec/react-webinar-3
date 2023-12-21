@@ -1,3 +1,5 @@
+import simplifyErrors from "../../utils/simplify-errors";
+
 export default {
   /**
    * Загрузка товара
@@ -27,7 +29,11 @@ export default {
         });
       } catch (e) {
         // Ошибка загрузки
-        dispatch({ type: "comments/load-error" });
+        const err = JSON.parse(e.message);
+        dispatch({
+          type: "comments/load-error",
+          payload: { data: simplifyErrors(err.data.issues) },
+        });
       }
     };
   },
@@ -53,7 +59,11 @@ export default {
           payload: { data: res.data.result },
         });
       } catch (error) {
-        dispatch({ type: "comments/add-error" });
+        const err = JSON.parse(e.message);
+        dispatch({
+          type: "comments/add-error",
+          payload: { data: simplifyErrors(err.data.issues) },
+        });
       }
     };
   },
