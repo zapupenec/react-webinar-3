@@ -4,13 +4,15 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import dateFormat from "../../utils/date-format";
 
-function Comment({ comment, t, replyToComment }) {
+function Comment({ comment, t, replyToComment, lang }) {
   const cn = bem("Comment");
   return (
     <div className={cn()}>
       <div className={cn("author")}>
         {comment.author.profile.name}
-        <span className={cn("date")}>{dateFormat(comment.dateCreate)}</span>
+        <span className={cn("date")}>
+          {dateFormat(comment.dateCreate, lang)}
+        </span>
       </div>
       <div className={cn("text")}>{comment.text}</div>
       <button onClick={replyToComment(comment._id)} className={cn("reply")}>
@@ -23,6 +25,7 @@ function Comment({ comment, t, replyToComment }) {
 Comment.propTypes = {
   comment: PropTypes.shape({
     text: PropTypes.string,
+
     dateCreate: PropTypes.string,
     author: PropTypes.shape({
       profile: PropTypes.shape({
@@ -32,6 +35,7 @@ Comment.propTypes = {
   }).isRequired,
   replyToComment: PropTypes.func,
   t: PropTypes.func,
+  lang: PropTypes.string,
 };
 
 Comment.defaultProps = {

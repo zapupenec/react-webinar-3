@@ -13,8 +13,18 @@
     "one": "article",
     "other": "articles"
   },
+  "article.madeIn": "Made in",
+  "article.category": "Category",
+  "article.edition": "Edition",
+  "article.price": "Price",
   "article.add": "Add",
+  "filter.all": "All",
+  "filter.order": "By order",
+  "filter.title": "By title",
+  "filter.expensive": "Expensive first",
+  "filter.edition": "Ancients first",
   "filter.reset": "Reset",
+  "filter.search": "Search",
   "auth.title": "Sign In",
   "auth.login": "Login",
   "auth.password": "Password",
@@ -30,5 +40,9 @@
   "comments.form.authText.part1": "Sign in",
   "comments.form.authText.part2": " ",
   "comments.form.authText.part3": "to comment.",
-  "comments.form.authText.part3reply": "to reply."
+  "comments.form.authText.part3reply": "to reply.",
+  "profile.title": "Profile",
+  "profile.name": "Name",
+  "profile.phone": "Phone",
+  "profile.email": "email"
 }

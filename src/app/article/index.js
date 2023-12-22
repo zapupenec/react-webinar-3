@@ -28,10 +28,14 @@ function Article() {
 
   const params = useParams();
   const [activeId, setActiveId] = useState(params.id);
+  const { t, lang } = useTranslate();
 
   useInit(() => {
     //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
+  }, [params.id, lang]);
+
+  useInit(() => {
     dispatch(commentsActions.load(params.id));
   }, [params.id]);
 
@@ -50,7 +54,6 @@ function Article() {
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -71,6 +74,7 @@ function Article() {
             comment={item}
             replyToComment={callbacks.replyToComment}
             t={t}
+            lang={lang}
           />
           {activeId === item._id && (
             <CommentForm

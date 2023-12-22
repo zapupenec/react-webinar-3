@@ -1,4 +1,6 @@
-const isProduction = process.env.NODE_ENV === 'production';
+import * as translations from "./i18n/translations";
+
+const isProduction = process.env.NODE_ENV === "production";
 
 /**
  * Настройки сервисов
@@ -11,13 +13,17 @@ const config = {
     modules: {
       session: {
         // Названия токена в АПИ
-        tokenHeader: 'X-Token'
-      }
-    }
+        tokenHeader: "X-Token",
+      },
+    },
   },
   api: {
-    baseUrl: ''
-  }
-}
+    baseUrl: "",
+  },
+  i18n: {
+    defaultLang: 'ru',
+    translations,
+  },
+};
 
 export default config;

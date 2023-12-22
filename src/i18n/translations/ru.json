@@ -15,8 +15,18 @@
     "many": "товаров",
     "other": "товара"
   },
+  "article.madeIn": "Страна производитель",
+  "article.category": "Категория",
+  "article.edition": "Год выпуска",
+  "article.price": "Цена",
   "article.add": "Добавить",
+  "filter.all": "Все",
+  "filter.order": "По порядку",
+  "filter.title": "По именованию",
+  "filter.expensive": "Сначала дорогие",
+  "filter.edition": "Древние",
   "filter.reset": "Сбросить",
+  "filter.search": "Поиск",
   "auth.title": "Вход",
   "auth.login": "Логин",
   "auth.password": "Пароль",
@@ -32,5 +42,9 @@
   "comments.form.authText.part1": "Войдите",
   "comments.form.authText.part2": ", чтобы иметь возможность ",
   "comments.form.authText.part3": "комментировать.",
-  "comments.form.authText.part3reply": "ответить."
+  "comments.form.authText.part3reply": "ответить.",
+  "profile.title": "Профиль",
+  "profile.name": "Имя",
+  "profile.phone": "Телефон",
+  "profile.email": "email"
 }
