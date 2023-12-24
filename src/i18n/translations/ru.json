@@ -39,6 +39,7 @@
   "comments.form.replyTitle": "Новый ответ",
   "comments.form.sumbit": "Отправить",
   "comments.form.cancel": "Отмена",
+  "comments.form.feedback": "Поле не может быть пустым",
   "comments.form.authText.part1": "Войдите",
   "comments.form.authText.part2": ", чтобы иметь возможность ",
   "comments.form.authText.part3": "комментировать.",

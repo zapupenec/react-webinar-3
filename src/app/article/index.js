@@ -40,6 +40,7 @@ function Article() {
   }, [params.id]);
 
   const sesion = useSelector((state) => ({
+    username: state.session.user.profile?.name,
     exists: state.session.exists,
   }));
 
@@ -53,7 +54,6 @@ function Article() {
     }),
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
-
 
   const callbacks = {
     // Добавление в корзину
@@ -69,26 +69,13 @@ function Article() {
   const renders = {
     itemComment: useCallback(
       (item) => (
-        <>
-          <Comment
-            comment={item}
-            replyToComment={callbacks.replyToComment}
-            t={t}
-            lang={lang}
-          />
-          {activeId === item._id && (
-            <CommentForm
-              articleId={params.id}
-              activeId={activeId}
-              replyToComment={callbacks.replyToComment}
-              submitForm={callbacks.onSubmit}
-              onCancel={callbacks.onCancel}
-              t={t}
-              isDisabled={select.commentsWaiting}
-              isAuth={sesion.exists}
-            />
-          )}
-        </>
+        <Comment
+          comment={item}
+          replyToComment={callbacks.replyToComment}
+          t={t}
+          lang={lang}
+          username={sesion.username}
+        />
       ),
       [
         activeId,
@@ -103,16 +90,44 @@ function Article() {
     ),
 
     itemChildren: useCallback(
-      (item) => (
+      (item, level) => (
         <CommentList
           list={select.comments}
+          activeId={activeId}
           parentId={item._id}
           renderItem={renders.itemComment}
           renderChildren={renders.itemChildren}
+          renderForm={renders.replyForm}
+          level={level}
         />
       ),
       [
         select.comments,
+        activeId,
+        params.id,
+        callbacks.replyToComment,
+        callbacks.onSubmit,
+        callbacks.onCancel,
+        select.commentsWaiting,
+        sesion.exists,
+        t,
+      ]
+    ),
+
+    replyForm: useCallback(
+      () => (
+        <CommentForm
+          articleId={params.id}
+          activeId={activeId}
+          replyToComment={callbacks.replyToComment}
+          submitForm={callbacks.onSubmit}
+          onCancel={callbacks.onCancel}
+          t={t}
+          isDisabled={select.commentsWaiting}
+          isAuth={sesion.exists}
+        />
+      ),
+      [
         activeId,
         params.id,
         callbacks.replyToComment,
@@ -143,9 +158,11 @@ function Article() {
         <Comments count={select.count} t={t}>
           <CommentList
             list={select.comments}
+            activeId={activeId}
             parentId={params.id}
             renderItem={renders.itemComment}
             renderChildren={renders.itemChildren}
+            renderForm={renders.replyForm}
           />
           {activeId === params.id && (
             <CommentForm

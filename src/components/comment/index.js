@@ -4,11 +4,16 @@ import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 import dateFormat from "../../utils/date-format";
 
-function Comment({ comment, t, replyToComment, lang }) {
+function Comment({ comment, t, replyToComment, lang, username }) {
   const cn = bem("Comment");
   return (
     <div className={cn()}>
-      <div className={cn("author")}>
+      <div
+        className={cn("author")}
+        style={{
+          color: username === comment.author.profile.name ? "#666" : "#000",
+        }}
+      >
         {comment.author.profile.name}
         <span className={cn("date")}>
           {dateFormat(comment.dateCreate, lang)}
@@ -36,6 +41,7 @@ Comment.propTypes = {
   replyToComment: PropTypes.func,
   t: PropTypes.func,
   lang: PropTypes.string,
+  username: PropTypes.string,
 };
 
 Comment.defaultProps = {

@@ -37,6 +37,7 @@
   "comments.form.replyTitle": "New reply",
   "comments.form.sumbit": "Sumbit",
   "comments.form.cancel": "Cancel",
+  "comments.form.feedback": "Field cannot be empty",
   "comments.form.authText.part1": "Sign in",
   "comments.form.authText.part2": " ",
   "comments.form.authText.part3": "to comment.",

@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
@@ -15,16 +15,29 @@ function CommentForm({
   isAuth,
 }) {
   const cn = bem("CommentForm");
+  const [value, setValue] = useState("");
+  const [isValid, setIsvalid] = useState(true);
+
+  const handleChange = (e) => {
+    setIsvalid(true);
+    setValue(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (e.target.comment.value.trim() === "") {
+      setIsvalid(false);
+      return;
+    }
+
     submitForm({
-      text: e.target.comment.value,
+      text: value.trim(),
       parent: {
         _id: activeId,
         _type: articleId === activeId ? "article" : "comment",
       },
     });
-    e.target.comment.value = "";
+    setValue("");
     replyToComment(articleId)();
   };
 
@@ -46,13 +59,17 @@ function CommentForm({
           : t("comments.form.replyTitle")}
       </label>
       <textarea
+        value={value}
+        onChange={handleChange}
         className={cn("textarea")}
         autoFocus={articleId !== activeId}
         id="comment"
         name="comment"
-        required
         disabled={isDisabled}
       />
+      {!isValid && (
+        <div className={cn("feedback")}>{t("comments.form.feedback")}</div>
+      )}
       <div className={cn("actions")}>
         <button type="sumbit" disabled={isDisabled}>
           {t("comments.form.sumbit")}

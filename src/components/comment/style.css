@@ -20,6 +20,8 @@
 .Comment-text {
   font-size: 14px;
   font-weight: 400;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .Comment-reply {

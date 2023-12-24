@@ -16,6 +16,10 @@
   height: 80px;
 }
 
+.CommentForm-feedback {
+  color: #f00;
+}
+
 .CommentForm-actions {
   display: flex;
   gap: 10px;
